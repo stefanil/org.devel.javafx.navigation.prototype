@@ -1,4 +1,4 @@
-FXMaps
+JFXMaps
 ===========================
 This project aims to deliver a stand alone Client for car navigation systems built on Java FX 2.0 and the Google Maps APIs.
 
