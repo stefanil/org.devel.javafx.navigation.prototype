@@ -96,6 +96,26 @@
 	<build>
 		<plugins>
 
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-enforcer-plugin</artifactId> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>enforce-versions</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>enforce</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<rules> -->
+<!-- 								<requireJavaVersion> -->
+<!-- 									<version>1.8</version> -->
+<!-- 								</requireJavaVersion> -->
+<!-- 							</rules> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -120,7 +140,7 @@
 						<manifest>
 							<classpathPrefix>lib/</classpathPrefix>
 							<addClasspath>true</addClasspath>
-							<mainClass>org.devel.javafx.navigation.prototype.App</mainClass>
+							<mainClass>org.devel.javafx.navigation.prototype.JFXMapsApplication</mainClass>
 							<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
 						</manifest>
 
@@ -161,23 +181,23 @@
 
 		<!-- inherited from MvvmFX -->
 
-		<profile>
-			<id>java7</id>
-			<activation>
-				<jdk>1.7</jdk>
-			</activation>
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>javafx</groupId>
-						<artifactId>javafx</artifactId>
-						<scope>system</scope>
-						<version>2.2</version>
-						<systemPath>${java.home}/lib/jfxrt.jar</systemPath>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-		</profile>
+		<!-- <profile> -->
+		<!-- <id>java7</id> -->
+		<!-- <activation> -->
+		<!-- <jdk>1.7</jdk> -->
+		<!-- </activation> -->
+		<!-- <dependencyManagement> -->
+		<!-- <dependencies> -->
+		<!-- <dependency> -->
+		<!-- <groupId>javafx</groupId> -->
+		<!-- <artifactId>javafx</artifactId> -->
+		<!-- <scope>system</scope> -->
+		<!-- <version>2.2</version> -->
+		<!-- <systemPath>${java.home}/lib/jfxrt.jar</systemPath> -->
+		<!-- </dependency> -->
+		<!-- </dependencies> -->
+		<!-- </dependencyManagement> -->
+		<!-- </profile> -->
 		<profile>
 			<id>java8</id>
 			<activation>
