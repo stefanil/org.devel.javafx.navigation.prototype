@@ -9,6 +9,6 @@ import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
  * @author stefan.illgen
  *
  */
-public class MapViewModel implements ViewModel {
+public class MapViewModel  implements ViewModel {
 
 }

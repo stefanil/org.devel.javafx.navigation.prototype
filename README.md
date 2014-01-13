@@ -17,6 +17,26 @@ This project aims to deliver a stand alone Client for car navigation systems bui
 ##Further
 * runnable multi-platform JAR
 
+#HowTos
+
+##Generate a Native Client
+Run ..
+<pre>
+$ mvn clean jfx:native
+</pre>
+
+
+###Exe (will not work 4 now)
+<pre>
+target\jfx\native\bundles\
+</pre>
+
+##Executable JAR
+<pre>
+../target/jfx/native $ "c:\Program Files\Java\jdk1.8.0\bin"\java -jar org.devel.javafx.navigation.prototype-0.1-SNAPSHOT-jfx.jar
+</pre>
+
+
 #Projectenvironement
 * Dependency and Build Management: Maven 3 project
 * Versioning: Git
