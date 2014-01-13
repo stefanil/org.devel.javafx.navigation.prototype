@@ -1,21 +1,15 @@
 package org.devel.javafx.navigation.prototype.view;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.net.Authenticator;
-import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.ProxySelector;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,10 +20,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-import org.devel.javafx.navigation.prototype.util.LogOutputStream;
+import org.devel.javafx.navigation.prototype.Configuration;
 import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
-
-import com.sun.webkit.WebPage;
 
 import de.saxsys.jfx.mvvm.base.view.View;
 
@@ -45,39 +37,23 @@ public class MapView extends View<MapViewModel> {
 	@FXML
 	private WebView mapWebView;
 
-	@SuppressWarnings("restriction")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		// load the web engine
+
+		// get the web engine
 		WebEngine webEngine = mapWebView.getEngine();
-		
+
 		// set up proxy and load monitors ..
-//		proxyCheck();
-		installLoadMonitors(webEngine);
-		
-		// load url		
-		try {
-			// final URL urlGoogleMaps = getClass().getResource("./googlemaps.html");
-			// webEngine.load(urlGoogleMaps.toExternalForm());
-			webEngine.load(new URL("http://www.google.com").toExternalForm());			
-			printLogs();			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		
-//		// load content directly (via HttpURLConnection)
-//		URL url = new URL("http://www.google.com");
-//		URLConnection urlConnection = new URLConnection(new URL("http://www.google.com").toExternalForm());
+		proxyCheck();
+		loadMonitors(webEngine);
+
+		// load url into the engine
+		final URL urlGoogleMaps = getClass().getResource(
+				Configuration.GOOGLEMAPS_HTML);
+		webEngine.load(urlGoogleMaps.toExternalForm());
 	}
 
-	private void printLogs() {
-		Logger logger = Logger.getLogger(WebPage.class.getName());
-		LogOutputStream los = new LogOutputStream(logger, Level.FINER);
-		System.setErr(new PrintStream(los, true));
-	}
-
-	private void installLoadMonitors(WebEngine webEngine) {
+	private void loadMonitors(WebEngine webEngine) {
 
 		final Worker<Void> loadWorker = webEngine.getLoadWorker();
 		loadWorker.stateProperty().addListener(
@@ -101,6 +77,9 @@ public class MapView extends View<MapViewModel> {
 
 	}
 
+	/*
+	 * TODO stefan - authenticate with proxy
+	 */
 	private void proxyCheck() {
 
 		System.setProperty("http.proxySet=true", "true");
@@ -111,8 +90,8 @@ public class MapView extends View<MapViewModel> {
 		final String authUser = "stefan.illgen";
 		final String authPassword = "52RpJdcu!@0";
 
-		SecurityManager securityManager = System.getSecurityManager();
-		
+		// SecurityManager securityManager = System.getSecurityManager();
+
 		Authenticator.setDefault(new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(authUser, authPassword
@@ -150,7 +129,6 @@ public class MapView extends View<MapViewModel> {
 				// });
 			}
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

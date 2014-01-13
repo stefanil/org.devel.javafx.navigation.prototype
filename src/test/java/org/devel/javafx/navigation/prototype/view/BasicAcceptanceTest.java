@@ -13,9 +13,7 @@ import org.loadui.testfx.GuiTest;
  */
 public class BasicAcceptanceTest extends GuiTest {
 
-	/* (non-Javadoc)
-	 * @see org.loadui.testfx.GuiTest#getRootNode()
-	 */
+	@Override
 	protected Parent getRootNode() {
 		// TODO Auto-generated method stub
 		return null;
