@@ -25,5 +25,7 @@ public class JFXMapsApplication extends Application {
 		ViewTuple<MapViewModel> viewTuple = viewLoader.loadViewTuple(MapView.class);
 		stage.setScene(new Scene(viewTuple.getView()));
 		stage.show();
+		stage.setHeight(480);
+		stage.setWidth(640);
 	}
 }

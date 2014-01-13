@@ -4,10 +4,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 
 <BorderPane fx:id="mapView" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
   <!-- TODO Add Nodes -->
+  <center>
+    <WebView fx:id="mapWebView" prefHeight="200.0" prefWidth="200.0" />
+  </center>
   <top>
-    <Label text="Ein Test Label" />
+    <Label alignment="CENTER" text="Google Maps View" BorderPane.alignment="CENTER">
+      <font>
+        <Font name="System Bold" size="12.0" />
+      </font>
+    </Label>
   </top>
 </BorderPane>
