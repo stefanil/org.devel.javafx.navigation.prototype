@@ -1,14 +1,6 @@
 package org.devel.javafx.navigation.prototype.view;
 
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
-import java.net.Proxy;
-import java.net.ProxySelector;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -21,6 +13,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import org.devel.javafx.navigation.prototype.Configuration;
+import org.devel.javafx.navigation.prototype.util.Properties;
 import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
 
 import de.saxsys.jfx.mvvm.base.view.View;
@@ -43,8 +36,8 @@ public class MapView extends View<MapViewModel> {
 		// get the web engine
 		WebEngine webEngine = mapWebView.getEngine();
 
-		// set up proxy and load monitors ..
-		proxyCheck();
+		// load proxy configuration and load monitors ..
+		loadProxyConf();
 		loadMonitors(webEngine);
 
 		// load url into the engine
@@ -65,7 +58,7 @@ public class MapView extends View<MapViewModel> {
 								oldValue, newValue);
 					}
 				});
-		// monitor exceptions 
+		// monitor exceptions
 		loadWorker.exceptionProperty().addListener(
 				new ChangeListener<Throwable>() {
 					public void changed(
@@ -82,30 +75,28 @@ public class MapView extends View<MapViewModel> {
 	/*
 	 * 
 	 */
-	private void proxyCheck() {
+	public void loadProxyConf() {
+		new Properties().load();
 
-		System.setProperty("java.net.preferIPv4Stack", "true");
-		System.setProperty("http.proxySet=true", "true");
-		System.setProperty("java.net.useSystemProxies=true", "true");
-		
-//		new Properties().load()
-		
-		System.setProperty("http.proxyHost", "http://AERO.saxsys.de");
-		System.setProperty("http.proxyPort", "8080");
-
-		try {
-			List<Proxy> proxies = ProxySelector.getDefault().select(
-					new URI("http://www.google.com"));
-			// ignoring multiple proxies to simplify code snippet
-			final Proxy proxy = proxies.get(0); 
-			if (proxy.type() != Proxy.Type.DIRECT) {
-				System.setProperty("http.proxyUser", "stefan.illgen");
-				System.setProperty("http.proxyPassword", "52RpJdcu!@0");
-			}
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-
+		// TODO stefan remove
+		// System.setProperty("java.net.preferIPv4Stack", "true");
+		// System.setProperty("http.proxySet=true", "true");
+		// System.setProperty("java.net.useSystemProxies", "true");
+		// System.setProperty("http.proxyHost", "http://AERO.saxsys.de");
+		// System.setProperty("http.proxyPort", "8080");
+		//
+		// try {
+		// List<Proxy> proxies = ProxySelector.getDefault().select(
+		// new URI("http://www.google.com"));
+		// // ignoring multiple proxies to simplify code snippet
+		// final Proxy proxy = proxies.get(0);
+		// if (proxy.type() != Proxy.Type.DIRECT) {
+		// System.setProperty("http.proxyUser", "stefan.illgen");
+		// System.setProperty("http.proxyPassword", "52RpJdcu!@0");
+		// }
+		// } catch (URISyntaxException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 }
