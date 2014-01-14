@@ -56,6 +56,7 @@ public class MapView extends View<MapViewModel> {
 	private void loadMonitors(WebEngine webEngine) {
 
 		final Worker<Void> loadWorker = webEngine.getLoadWorker();
+		// monitor state
 		loadWorker.stateProperty().addListener(
 				new ChangeListener<Worker.State>() {
 					public void changed(ObservableValue<? extends State> ov,
@@ -64,6 +65,7 @@ public class MapView extends View<MapViewModel> {
 								oldValue, newValue);
 					}
 				});
+		// monitor exceptions 
 		loadWorker.exceptionProperty().addListener(
 				new ChangeListener<Throwable>() {
 					public void changed(
@@ -78,55 +80,27 @@ public class MapView extends View<MapViewModel> {
 	}
 
 	/*
-	 * TODO stefan - authenticate with proxy
+	 * 
 	 */
 	private void proxyCheck() {
 
+		System.setProperty("java.net.preferIPv4Stack", "true");
 		System.setProperty("http.proxySet=true", "true");
 		System.setProperty("java.net.useSystemProxies=true", "true");
+		
+//		new Properties().load()
+		
 		System.setProperty("http.proxyHost", "http://AERO.saxsys.de");
 		System.setProperty("http.proxyPort", "8080");
-
-		final String authUser = "stefan.illgen";
-		final String authPassword = "52RpJdcu!@0";
-
-		// SecurityManager securityManager = System.getSecurityManager();
-
-		Authenticator.setDefault(new Authenticator() {
-			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(authUser, authPassword
-						.toCharArray());
-			}
-		});
 
 		try {
 			List<Proxy> proxies = ProxySelector.getDefault().select(
 					new URI("http://www.google.com"));
-			final Proxy proxy = proxies.get(0); // ignoring multiple proxies to
-												// simplify code snippet
+			// ignoring multiple proxies to simplify code snippet
+			final Proxy proxy = proxies.get(0); 
 			if (proxy.type() != Proxy.Type.DIRECT) {
-
-				// -Dhttp.proxyHost=http://aero.saxsys.de -Dhttp.proxyPort=8080
-				// -Dhttp.proxyUser=stefan.illgen
-				// -Dhttp.proxyPassword=52RpJdcu!@0 -Dhttp.proxySet=true
-				// -Djava.net.useSystemProxies=true
-				System.setProperty("http.proxyUser", authUser);
-				System.setProperty("http.proxyPassword", authPassword);
-
-				Properties properties = System.getProperties();
-				System.out.println(properties);
-
-				// you can change that to dialog using separate Stage
-				// final TextField login = new TextField("login");
-				// final PasswordField pwd = new PasswordField();
-				// Button btn = new Button("Submit");
-				// btn.setOnAction(new EventHandler<ActionEvent>() {
-				// @Override
-				// public void handle(ActionEvent t) {
-				// System.setProperty("http.proxyUser", login.getText());
-				// System.setProperty("http.proxyPassword", pwd.getText());
-				// }
-				// });
+				System.setProperty("http.proxyUser", "stefan.illgen");
+				System.setProperty("http.proxyPassword", "52RpJdcu!@0");
 			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
