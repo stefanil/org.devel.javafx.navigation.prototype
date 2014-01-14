@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import org.devel.javafx.navigation.prototype.Configuration;
 import org.devel.javafx.navigation.prototype.viewmodel.SearchRouteViewModel;
 import org.junit.Test;
 
@@ -17,7 +18,8 @@ import org.junit.Test;
  * @author stefan.illgen
  * 
  */
-public class SearchRouteViewTest extends BasicAcceptanceTest<SearchRouteView, SearchRouteViewModel> {
+public class SearchRouteViewTest extends
+		BasicAcceptanceTest<SearchRouteView, SearchRouteViewModel> {
 
 	public static final String START_LATITUDE = "51.02681";
 	public static final String START_LONGITUDE = "13.70878";
@@ -35,9 +37,12 @@ public class SearchRouteViewTest extends BasicAcceptanceTest<SearchRouteView, Se
 		Label startLbl = findAwait("#startLbl");
 		verifyThat(startLbl.getText(), is("Start:"));
 		TextField startTf = findAwait("#startTf", getParent());
+		verifyThat(startTf.getText(),
+				is(Configuration.DEFAULT_POSITION_LATITUDE + " "
+						+ Configuration.DEFAULT_POSITION_LONGITUDE));
 		// Action
-		click(startTf);
-		startTf.setText(START_LATITUDE + " " + START_LONGITUDE);
+		push(startTf, "");
+		push(startTf, START_LATITUDE + " " + START_LONGITUDE);
 		// Post: TODO check if start point gets drawn
 		// verifyThat(getParent(), notNullValue());
 	}
@@ -49,9 +54,12 @@ public class SearchRouteViewTest extends BasicAcceptanceTest<SearchRouteView, Se
 		Label finishLbl = findAwait("#finishLbl");
 		verifyThat(finishLbl.getText(), is("Finish:"));
 		TextField finishTf = findAwait("#finishTf", getParent());
+		verifyThat(finishTf.getText(),
+				is(Configuration.DEFAULT_POSITION_LATITUDE + " "
+						+ Configuration.DEFAULT_POSITION_LONGITUDE));
 		// Action
-		click(finishTf);
-		finishTf.setText(FINISH_LATITUDE + " " + FINISH_LONGITUDE);
+		push(finishTf, "");
+		push(finishTf, FINISH_LATITUDE + " " + FINISH_LONGITUDE);
 		// Post: TODO check if start point gets drawn
 		// verifyThat(getParent(), notNullValue());
 	}
@@ -63,9 +71,9 @@ public class SearchRouteViewTest extends BasicAcceptanceTest<SearchRouteView, Se
 		Button searchBtn = findAwait("#searchBtn", getParent());
 		verifyThat(searchBtn.getText(), is("Search"));
 		// Action
-		click( searchBtn );
+		click(searchBtn);
 		// Post: TODO check if route gets drawn
-		// verifyThat(getParent(), notNullValue());		
+		// verifyThat(getParent(), notNullValue());
 	}
 
 }

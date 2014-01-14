@@ -8,6 +8,7 @@ import java.util.concurrent.Callable;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 
 import org.devel.javafx.navigation.prototype.Configuration;
 import org.junit.After;
@@ -23,20 +24,21 @@ import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
 
 /**
  * @author stefan.illgen
- *
+ * 
  */
-public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel> extends GuiTest {
+public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel>
+		extends GuiTest {
 
 	/**
 	 * 
 	 */
-	public static final int AWAIT_TIMEOUT_IN_SECONDS = 10;
-	
+	public static final int AWAIT_TIMEOUT_IN_SECONDS = 30;
+
 	private ViewTuple<VM> viewTuple;
 	private Node parent;
 	private String parentId;
 	private Class<V> viewClazz;
-	
+
 	/**
 	 * 
 	 * @param viewClazz
@@ -53,11 +55,11 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel> exten
 	 */
 	@Override
 	protected Parent getRootNode() {
-        ViewLoader viewLoader = new ViewLoader();
-		viewTuple = viewLoader.loadViewTuple(viewClazz);//MapView.class);
+		ViewLoader viewLoader = new ViewLoader();
+		viewTuple = viewLoader.loadViewTuple(viewClazz);
 		return viewTuple.getView();
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -65,131 +67,160 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel> exten
 	public Node getParent() {
 		return parent;
 	}
-	
+
 	/**
-     * Returns the mvvmFX {@link ViewTuple} representing a selected planning board.
-     * 
-     * @return the mvvmFX {@link ViewTuple} representing a selected planning board
-     */
-    public ViewTuple<VM> getTuple() {
-        return viewTuple;
-    }
-    
-    /**
-     * Prepares the stage and binds the view model.
-     */
-    @Override
-    public void setupStage() throws Throwable {
+	 * Returns the mvvmFX {@link ViewTuple} representing a selected planning
+	 * board.
+	 * 
+	 * @return the mvvmFX {@link ViewTuple} representing a selected planning
+	 *         board
+	 */
+	public ViewTuple<VM> getTuple() {
+		return viewTuple;
+	}
 
-        super.setupStage();
-        stage.setWidth(Configuration.APPLICATION_SCREEN_WIDTH);
-        stage.setHeight(Configuration.APPLICATION_SCREEN_HEIGHT);
-        stage.setX(0.0);
-        stage.setY(0.0);
+	/**
+	 * Prepares the stage and binds the view model.
+	 */
+	@Override
+	public void setupStage() throws Throwable {
 
-        // create model and view model for testing (lazy bind) inside the one and only UI thread
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                createBindViewModel();
-            }
-        });
-        // and ..
-        wait4Parent();
-    }
+		super.setupStage();
+		stage.setWidth(Configuration.APPLICATION_SCREEN_WIDTH);
+		stage.setHeight(Configuration.APPLICATION_SCREEN_HEIGHT);
+		stage.setX(0.0);
+		stage.setY(0.0);
 
-    /**
-     * Creates and bind the model to the view model. Subclasses may override this to set a custom model for testing.
-     * 
-     * Override this method to create and bind a custom view model.
-     */
-    protected void createBindViewModel() {
-        // nothing yet
-    }
+		// create model and view model for testing (lazy bind) inside the one
+		// and only UI thread
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				createBindViewModel();
+			}
+		});
+		// and ..
+		wait4Parent();
+	}
 
-    /**
-     * Waits until the node tree is build, i.e. until the following conditions are fulfilled:
-     * 
-     * <ul>
-     * <li>the parent node with id <code>#vBoxPlanningBoard</code> was found</li>
-     * <li>the amount of children of the parent is 8</li>
-     * <ul>
-     * 
-     * The conditions are checked via polling. The maximum time to wait is 10 seconds.
-     */
-    protected void wait4Parent() {
-        TestUtils.awaitCondition(new Callable<Boolean>() {
+	/**
+	 * Creates and bind the model to the view model. Subclasses may override
+	 * this to set a custom model for testing.
+	 * 
+	 * Override this method to create and bind a custom view model.
+	 */
+	protected void createBindViewModel() {
+		// nothing yet
+	}
+
+	/**
+	 * Waits until the node tree is build, i.e. until the following conditions
+	 * are fulfilled:
+	 * 
+	 * <ul>
+	 * <li>the parent node with id <code>#vBoxPlanningBoard</code> was found</li>
+	 * <li>the amount of children of the parent is 8</li>
+	 * <ul>
+	 * 
+	 * The conditions are checked via polling. The maximum time to wait is 10
+	 * seconds.
+	 */
+	protected void wait4Parent() {
+		TestUtils.awaitCondition(new Callable<Boolean>() {
 
 			@Override
-            public Boolean call() throws Exception {
-                try {
-                    parent = find(parentId);
-                    return parent != null; // && parent.getChildrenUnmodifiable().size() == 8;
-                } catch (NoNodesVisibleException e) {
-                    // nothing
-                } catch (IndexOutOfBoundsException e) {
-                    // nothing
-                }
-                return false;
-            }
-        }, AWAIT_TIMEOUT_IN_SECONDS);
-    }
+			public Boolean call() throws Exception {
+				try {
+					parent = find(parentId);
+					return parent != null; // &&
+											// parent.getChildrenUnmodifiable().size()
+											// == 8;
+				} catch (NoNodesVisibleException e) {
+					// nothing
+				} catch (IndexOutOfBoundsException e) {
+					// nothing
+				}
+				return false;
+			}
+		}, AWAIT_TIMEOUT_IN_SECONDS);
+	}
 
-    /**
-     * Reset state of stage.
-     */
-    @After
-    public void tearDown() {
-        parent = null;
-    }
-    
-    // ########### helpers ######
-    
-    /**
-     * Tries to find a {@link Node} for a given query via polling the query request for at most 10 seconds.
-     * 
-     * @param query the query string
-     * @return the queried node
-     * 
-     * @throws NoNodesFoundException, if no nodes were found
-     */
-    public static <T extends Node> T findAwait(final String query) {
-        TestUtils.awaitCondition(new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                try {
-                    find(query);
-                    return true;
-                } catch (NoNodesVisibleException e) {
-                    return false;
-                }
-            }
-        }, AWAIT_TIMEOUT_IN_SECONDS);
-        return find(query);
-    }
+	/**
+	 * Reset state of stage.
+	 */
+	@After
+	public void tearDown() {
+		parent = null;
+	}
 
-    /**
-     * Tries to find a {@link Node} for a given query via polling the query request for at most 10 seconds.
-     * 
-     * @param query the query string
-     * @param parent a parent of the node to find
-     * @return the queried node
-     * 
-     * @throws NoNodesFoundException, if no nodes were found
-     */
-    public static <T extends Node> T findAwait(final String query, final Object parent) {
-        TestUtils.awaitCondition(new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                try {
-                    find(query, parent);
-                    return true;
-                } catch (NoNodesVisibleException e) {
-                    return false;
-                }
-            }
-        }, AWAIT_TIMEOUT_IN_SECONDS);
-        return find(query, parent);
-    }
+	// ########### helpers ######
+
+	/**
+	 * Tries to find a {@link Node} for a given query via polling the query
+	 * request for at most 10 seconds.
+	 * 
+	 * @param query
+	 *            the query string
+	 * @return the queried node
+	 * 
+	 * @throws NoNodesFoundException
+	 *             , if no nodes were found
+	 */
+	public static <T extends Node> T findAwait(final String query) {
+		TestUtils.awaitCondition(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				try {
+					find(query);
+					return true;
+				} catch (NoNodesVisibleException e) {
+					return false;
+				}
+			}
+		}, AWAIT_TIMEOUT_IN_SECONDS);
+		return find(query);
+	}
+
+	/**
+	 * Tries to find a {@link Node} for a given query via polling the query
+	 * request for at most 10 seconds.
+	 * 
+	 * @param query
+	 *            the query string
+	 * @param parent
+	 *            a parent of the node to find
+	 * @return the queried node
+	 * 
+	 * @throws NoNodesFoundException
+	 *             , if no nodes were found
+	 */
+	public static <T extends Node> T findAwait(final String query,
+			final Object parent) {
+		TestUtils.awaitCondition(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				try {
+					find(query, parent);
+					return true;
+				} catch (NoNodesVisibleException e) {
+					return false;
+				}
+			}
+		}, AWAIT_TIMEOUT_IN_SECONDS);
+		return find(query, parent);
+	}
+
+	/**
+	 * Pushes all characters of a given {@link String} to the given
+	 * {@link TextField}.
+	 * 
+	 * @param textField
+	 * @param string
+	 */
+	public void push(TextField textField, String string) {
+		click(textField);
+		for (char ch : string.toCharArray())
+			push(ch);
+	}
 
 }

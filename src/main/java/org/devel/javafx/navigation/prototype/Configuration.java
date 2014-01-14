@@ -22,4 +22,7 @@ public class Configuration {
 	//"googlemaps.html";
 	//"fxexperience.html";
 
+	public static final double DEFAULT_POSITION_LONGITUDE = 13.70878;
+	public static final double DEFAULT_POSITION_LATITUDE = 51.02681;
+
 }

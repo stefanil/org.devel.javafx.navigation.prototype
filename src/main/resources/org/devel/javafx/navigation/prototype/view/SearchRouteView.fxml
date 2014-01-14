@@ -13,7 +13,7 @@
       <children>
         <Label fx:id="startLbl" text="Start:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Label fx:id="finishLbl" text="Finish:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField id="finishTf" fx:id="startTf" onKeyTyped="#startChanged" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="startTf" onKeyTyped="#startChanged" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <TextField fx:id="finishTf" onKeyTyped="#finishChanged" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Button fx:id="searchBtn" mnemonicParsing="false" text="Search" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
       </children>

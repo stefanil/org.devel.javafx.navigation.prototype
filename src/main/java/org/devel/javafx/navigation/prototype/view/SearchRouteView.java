@@ -52,9 +52,8 @@ public class SearchRouteView extends View<SearchRouteViewModel> {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		
-		
+		startTf.textProperty().bindBidirectional(getViewModel().startProperty());
+		finishTf.textProperty().bindBidirectional(getViewModel().finishProperty());
 	}
 
 }
