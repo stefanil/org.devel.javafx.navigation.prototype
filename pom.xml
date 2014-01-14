@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>de.saxsys</groupId>
 			<artifactId>mvvmFX</artifactId>
-			<version>0.1.2</version>			
+			<version>0.1.2</version>
 		</dependency>
 
 
@@ -102,36 +102,6 @@
 		<plugins>
 
 			<plugin>
-				<groupId>com.zenjava</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>2.0</version>
-				<configuration>
-					<mainClass>${mainClass}</mainClass>
-					<vendor>Stefanil</vendor>
-				</configuration>
-			</plugin>
-
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-enforcer-plugin</artifactId> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <id>enforce-versions</id> -->
-			<!-- <goals> -->
-			<!-- <goal>enforce</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <rules> -->
-			<!-- <requireJavaVersion> -->
-			<!-- <version>1.8</version> -->
-			<!-- </requireJavaVersion> -->
-			<!-- </rules> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
-
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
@@ -169,49 +139,15 @@
 				<version>2.7</version>
 			</plugin>
 
-
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-assembly-plugin</artifactId> -->
-			<!-- <configuration> -->
-			<!-- <descriptors> -->
-			<!-- <descriptor>src/main/resources/src.xml</descriptor> -->
-			<!-- </descriptors> -->
-			<!-- @see http://loop81.blogspot.de/2012/03/javafx-2-get-started-with-maven-eclipse.html -->
-			<!-- javafxpackager.exe -createjar -appclass de.saxsys.eteo.eteoWizard.Starter 
-				-srcdir classes/ -outfile app -->
-			<!-- <archive> -->
-			<!-- <manifest> -->
-			<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
-			<!-- </manifest> -->
-			<!-- <manifestEntries> -->
-			<!-- <JavaFX-Version>2.2</JavaFX-Version> -->
-			<!-- <JavaFX-Application-Class>${mainClass}</JavaFX-Application-Class> -->
-			<!-- <Main-Class>com/javafx/main/Main</Main-Class> -->
-			<!-- Jenkins build number -> injected via -Dbuild.number in config of 
-				jenkins build -> not done yet -->
-			<!-- <Build-Number>${build.number}</Build-Number> -->
-			<!-- </manifestEntries> -->
-			<!-- </archive> -->
-			<!-- </configuration> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>single</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
-			
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                </configuration>
-            </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
 
 		</plugins>
 	</build>
@@ -235,7 +171,7 @@
 				</dependencies>
 			</dependencyManagement>
 		</profile>
-		
+
 		<profile>
 			<id>java8</id>
 			<activation>
@@ -253,6 +189,62 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+
+		<profile>
+			<id>native-client</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+<!-- 				<resources> -->
+<!-- 					<resource> -->
+<!-- 						<directory>${project.build.directory}</directory> -->
+<!-- 						<includes> -->
+<!-- 							<include>version.info</include> -->
+<!-- 						</includes> -->
+<!-- 					</resource> -->
+<!-- 				</resources> -->
+<!-- 				<pluginManagement> -->
+<!-- 					<plugins> -->
+<!-- 						<plugin> -->
+<!-- 							<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 							<artifactId>maven-antrun-plugin</artifactId> -->
+<!-- 							<version>1.7</version> -->
+<!-- 						</plugin> -->
+<!-- 					</plugins> -->
+<!-- 				</pluginManagement> -->
+
+				<!-- generate native client -->
+				<plugins>
+					<plugin>
+						<groupId>com.zenjava</groupId>
+						<artifactId>javafx-maven-plugin</artifactId>
+						<version>2.0</version>
+						<configuration>
+							<mainClass>${mainClass}</mainClass>
+							<jvmArgs>
+								<jvmArg>-Xms512m</jvmArg>
+								<jvmArg>-Xmx1024m</jvmArg>
+								<jvmArg>-Dsun.java2d.opengl=True</jvmArg>
+								<jvmArg>-Dfile.encoding=UTF-8</jvmArg>
+								<jvmArg>-Djava.net.preferIPv4Stack=true</jvmArg>
+							</jvmArgs>
+							<vendor>Stefanil</vendor>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>native</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+
 		</profile>
 
 	</profiles>

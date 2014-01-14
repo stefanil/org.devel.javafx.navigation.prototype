@@ -3,7 +3,6 @@
  */
 package org.devel.javafx.navigation.prototype.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Proxy;
 import java.net.ProxySelector;
@@ -13,13 +12,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.devel.javafx.navigation.prototype.Configuration;
+
 /**
  * @author stefan.illgen
- * 
  */
 public class Properties extends java.util.Properties {
 
-	public static final String PROXY_CONF_PATH = "./proxy.conf";
 	private static final String HTTP_PROXY_HOST_KEY = "http.proxyHost";
 	private static final String HTTP_PROXY_PORT_KEY = "http.proxyPort";
 	private static final String HTTP_PROXY_USER_KEY = "http.proxyUser";
@@ -32,35 +31,36 @@ public class Properties extends java.util.Properties {
 	 * Instantiates the logger.
 	 */
 	public Properties() {
+		super();
 		logger = Logger.getLogger(getClass().getName());
 	}
 
 	/**
-	 * Loads the file input stream under the given {@link #PROXY_CONF_PATH}.
+	 * Loads the file input stream under the given {@link #PROXY_CONF_PATH} and
+	 * configures java.net to use the proxy.
 	 */
-	public synchronized void load() {
+	public synchronized void loadProxyConf() {
 		try {
-			super.load(new FileInputStream(PROXY_CONF_PATH));
 
-			// load all properties at once
-			// System.setProperties(this);
+			super.load(getClass().getResourceAsStream(
+					Configuration.PROXY_CONF_PATH));
 
 			// default config
 			System.setProperty("java.net.preferIPv4Stack", "true");
-			System.setProperty("http.proxySet=true", "true");
+			System.setProperty("http.proxySet", "true");
 			System.setProperty("java.net.useSystemProxies", "true");
-			
+
 			// proxy addressing
 			System.setProperty(HTTP_PROXY_HOST_KEY,
 					(String) get(HTTP_PROXY_HOST_KEY));
 			System.setProperty(HTTP_PROXY_PORT_KEY,
 					(String) get(HTTP_PROXY_PORT_KEY));
-			
+
 			// proxy auth
 			try {
 				List<Proxy> proxies = ProxySelector.getDefault().select(
-						new URI("http://www.google.com"));
-				
+						new URI( "http://www.google.com" ));
+
 				// ignoring multiple proxies to simplify code snippet
 				final Proxy proxy = proxies.get(0);
 				// handle only non direct proxies
@@ -70,11 +70,11 @@ public class Properties extends java.util.Properties {
 					System.setProperty(HTTP_PROXY_PASSWORD_KEY,
 							(String) get(HTTP_PROXY_PASSWORD_KEY));
 				}
-				
+
 			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			}
-			
+
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		}

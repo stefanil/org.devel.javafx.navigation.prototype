@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * 
  */
 @RunWith(Suite.class)
-@SuiteClasses({  })
+@SuiteClasses({ MapViewTest.class })
 public class AllViewTests {
 
 }
