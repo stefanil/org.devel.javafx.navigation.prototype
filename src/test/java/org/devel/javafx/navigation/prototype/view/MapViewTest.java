@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Worker.State;
 import javafx.scene.web.WebView;
 
+import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
 import org.junit.Test;
 import org.loadui.testfx.utils.TestUtils;
 
@@ -18,20 +19,20 @@ import org.loadui.testfx.utils.TestUtils;
  * @author stefan.illgen
  *
  */
-public class MapViewTest extends BasicAcceptanceTest<MapView> {
+public class MapViewTest extends BasicAcceptanceTest<MapView, MapViewModel> {
 	
 	/**
 	 * 
 	 */
 	public MapViewTest() {
-		super(MapView.class, "#mapViewRegion");
+		super(MapView.class, "#mapViewPane");
 	}
 
 	/**
 	 * 
 	 */
 	@Test
-	public void test() {
+	public void testMapExistence() {
 		// Pre
 		verifyThat(getParent(), notNullValue());
 		// Action

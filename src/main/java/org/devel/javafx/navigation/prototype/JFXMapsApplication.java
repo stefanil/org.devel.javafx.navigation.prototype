@@ -21,11 +21,15 @@ public class JFXMapsApplication extends Application {
 	}
 
 	public void start(Stage stage) throws Exception {
+		// load view tuple
 		ViewLoader viewLoader = new ViewLoader();
 		ViewTuple<MapViewModel> viewTuple = viewLoader.loadViewTuple(MapView.class);
+		// configure the stage
 		stage.setScene(new Scene(viewTuple.getView()));
+		stage.setTitle(Configuration.APPLICATION_TITLE);
+		stage.setHeight(Configuration.APPLICATION_SCREEN_HEIGHT);
+		stage.setWidth(Configuration.APPLICATION_SCREEN_WIDTH);
+		// show the stage
 		stage.show();
-		stage.setHeight(480);
-		stage.setWidth(640);
 	}
 }

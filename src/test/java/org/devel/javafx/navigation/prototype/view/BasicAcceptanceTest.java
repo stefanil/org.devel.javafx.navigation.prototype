@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 
 import org.devel.javafx.navigation.prototype.Configuration;
-import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
 import org.junit.After;
 import org.loadui.testfx.GuiTest;
 import org.loadui.testfx.exceptions.NoNodesFoundException;
@@ -18,6 +17,7 @@ import org.loadui.testfx.exceptions.NoNodesVisibleException;
 import org.loadui.testfx.utils.TestUtils;
 
 import de.saxsys.jfx.mvvm.base.view.View;
+import de.saxsys.jfx.mvvm.base.viewmodel.ViewModel;
 import de.saxsys.jfx.mvvm.viewloader.ViewLoader;
 import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
 
@@ -25,24 +25,24 @@ import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
  * @author stefan.illgen
  *
  */
-public class BasicAcceptanceTest<T extends View<MapViewModel>> extends GuiTest {
+public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel> extends GuiTest {
 
 	/**
 	 * 
 	 */
 	public static final int AWAIT_TIMEOUT_IN_SECONDS = 10;
 	
-	private ViewTuple<MapViewModel> viewTuple;
+	private ViewTuple<VM> viewTuple;
 	private Node parent;
 	private String parentId;
-	private Class<T> viewClazz;
+	private Class<V> viewClazz;
 	
 	/**
 	 * 
 	 * @param viewClazz
 	 * @param parentId
 	 */
-	public BasicAcceptanceTest(Class<T> viewClazz, String parentId) {
+	public BasicAcceptanceTest(Class<V> viewClazz, String parentId) {
 		super();
 		this.parentId = parentId;
 		this.viewClazz = viewClazz;
@@ -71,7 +71,7 @@ public class BasicAcceptanceTest<T extends View<MapViewModel>> extends GuiTest {
      * 
      * @return the mvvmFX {@link ViewTuple} representing a selected planning board
      */
-    public ViewTuple<MapViewModel> getTuple() {
+    public ViewTuple<VM> getTuple() {
         return viewTuple;
     }
     

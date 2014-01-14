@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<BorderPane fx:id="mapViewRegion" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
+<BorderPane fx:id="mapViewPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
   <!-- TODO Add Nodes -->
   <center>
     <WebView fx:id="mapWebView" prefHeight="200.0" prefWidth="200.0" />

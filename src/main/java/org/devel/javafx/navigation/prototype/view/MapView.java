@@ -25,7 +25,7 @@ import de.saxsys.jfx.mvvm.base.view.View;
 public class MapView extends View<MapViewModel> {
 
 	@FXML
-	private BorderPane mapView;
+	private BorderPane mapViewPane;
 
 	@FXML
 	private WebView mapWebView;
