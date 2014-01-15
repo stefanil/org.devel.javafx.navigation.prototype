@@ -150,7 +150,11 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel>
 	 */
 	@After
 	public void tearDown() {
-		parent = null;
+		stage.setX(175);
+        stage.setY(175);
+        stage.setWidth(640);
+        stage.setHeight(400);
+        parent = null;
 	}
 
 	// ########### helpers ######

@@ -22,6 +22,7 @@ public class SearchRouteViewModel implements ViewModel {
 
 	private StringProperty start;
 	private StringProperty finish;
+	private Object mapViewModel;
 
 	public SearchRouteViewModel() {
 		initialize();
@@ -61,5 +62,10 @@ public class SearchRouteViewModel implements ViewModel {
 				new PositionStringConverter());
 		Bindings.bindBidirectional(finishProperty(), route.finishProperty(),
 				new PositionStringConverter());
+	}
+
+	public void initialize(MapViewModel viewModel) {
+		this.mapViewModel = mapViewModel;
+		
 	}
 }

@@ -11,7 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
 
 import org.devel.javafx.navigation.prototype.viewmodel.SearchRouteViewModel;
 
@@ -22,6 +23,9 @@ import de.saxsys.jfx.mvvm.base.view.View;
  *
  */
 public class SearchRouteView extends View<SearchRouteViewModel> {
+	
+	@FXML
+	private MapView mapViewController;
 
 	@FXML
     private Label finishLbl;
@@ -33,7 +37,7 @@ public class SearchRouteView extends View<SearchRouteViewModel> {
     private Button searchBtn;
 
     @FXML
-    private BorderPane searchRoutePane;
+    private VBox searchRouteVBox;
 
     @FXML
     private Label startLbl;
@@ -48,10 +52,15 @@ public class SearchRouteView extends View<SearchRouteViewModel> {
 
     @FXML
     void startChanged(KeyEvent event) {
+    	WebEngine webEngine = mapViewController.getWebEngine();
+//    	webEngine.executeScript("document.goToLocation(\""+ searchBox.getRawText()+"\")");
     }
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		getViewModel().initialize(mapViewController.getViewModel());
+		
 		startTf.textProperty().bindBidirectional(getViewModel().startProperty());
 		finishTf.textProperty().bindBidirectional(getViewModel().finishProperty());
 	}

@@ -7,9 +7,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<BorderPane fx:id="mapViewPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
+<HBox fx:id="mapViewHBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
   <!-- TODO Add Nodes -->
-  <center>
-    <WebView fx:id="mapWebView" prefHeight="200.0" prefWidth="200.0" />
-  </center>
-</BorderPane>
+  <children>
+    <WebView fx:id="mapWebView" minHeight="100.0" minWidth="100.0" prefHeight="300.0" prefWidth="640.0" HBox.hgrow="ALWAYS" />
+  </children>
+</HBox>

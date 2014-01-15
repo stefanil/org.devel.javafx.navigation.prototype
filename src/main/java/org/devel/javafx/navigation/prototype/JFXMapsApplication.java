@@ -4,8 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import org.devel.javafx.navigation.prototype.view.MapView;
-import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
+import org.devel.javafx.navigation.prototype.view.SearchRouteView;
+import org.devel.javafx.navigation.prototype.viewmodel.SearchRouteViewModel;
 
 import de.saxsys.jfx.mvvm.viewloader.ViewLoader;
 import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
@@ -23,12 +23,12 @@ public class JFXMapsApplication extends Application {
 	public void start(Stage stage) throws Exception {
 		// load view tuple
 		ViewLoader viewLoader = new ViewLoader();
-		ViewTuple<MapViewModel> viewTuple = viewLoader.loadViewTuple(MapView.class);
+		ViewTuple<SearchRouteViewModel> viewTuple = viewLoader.loadViewTuple(SearchRouteView.class);
 		// configure the stage
 		stage.setScene(new Scene(viewTuple.getView()));
 		stage.setTitle(Configuration.APPLICATION_TITLE);
-		stage.setHeight(Configuration.APPLICATION_SCREEN_HEIGHT);
-		stage.setWidth(Configuration.APPLICATION_SCREEN_WIDTH);
+//		stage.setHeight(Configuration.APPLICATION_SCREEN_HEIGHT);
+//		stage.setWidth(Configuration.APPLICATION_SCREEN_WIDTH);
 		// show the stage
 		stage.show();
 	}

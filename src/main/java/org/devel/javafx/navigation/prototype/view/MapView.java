@@ -8,7 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -25,16 +25,18 @@ import de.saxsys.jfx.mvvm.base.view.View;
 public class MapView extends View<MapViewModel> {
 
 	@FXML
-	private BorderPane mapViewPane;
+	private HBox mapViewHBox;
 
 	@FXML
 	private WebView mapWebView;
+
+	private WebEngine webEngine;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		// get the web engine
-		WebEngine webEngine = mapWebView.getEngine();
+		webEngine = mapWebView.getEngine();
 
 		// load proxy configuration and load monitors ..
 		new Properties().loadProxyConf();
@@ -49,18 +51,19 @@ public class MapView extends View<MapViewModel> {
 	private void loadMonitors(WebEngine webEngine) {
 
 		final Worker<Void> loadWorker = webEngine.getLoadWorker();
-		
+
 		// monitor state
 		loadWorker.stateProperty().addListener(
 				new ChangeListener<Worker.State>() {
 					public void changed(ObservableValue<? extends State> ov,
 							State oldValue, State newValue) {
-						if(Configuration.DEBUG)
-							System.err.printf("State changed, old: %s, new: %s%n",
+						if (Configuration.DEBUG)
+							System.err.printf(
+									"State changed, old: %s, new: %s%n",
 									oldValue, newValue);
 					}
 				});
-		
+
 		// monitor exceptions
 		loadWorker.exceptionProperty().addListener(
 				new ChangeListener<Throwable>() {
@@ -72,7 +75,11 @@ public class MapView extends View<MapViewModel> {
 								oldValue, newValue);
 					}
 				});
-		
+
 	}
 
+	public WebEngine getWebEngine() {
+		return webEngine;		
+	}
+	
 }
