@@ -6,9 +6,7 @@ package org.devel.javafx.navigation.prototype.viewmodel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.util.StringConverter;
 
-import org.devel.javafx.navigation.prototype.model.Position;
 import org.devel.javafx.navigation.prototype.model.Route;
 import org.devel.javafx.navigation.prototype.viewmodel.converter.PositionStringConverter;
 
@@ -23,10 +21,6 @@ public class SearchRouteViewModel implements ViewModel {
 	private StringProperty start;
 	private StringProperty finish;
 	private Object mapViewModel;
-
-	public SearchRouteViewModel() {
-		initialize();
-	}
 
 	public StringProperty startProperty() {
 		if (start == null)
@@ -56,16 +50,14 @@ public class SearchRouteViewModel implements ViewModel {
 		this.finish.set(finish);
 	}
 
-	public void initialize() {
+	public void initialize(MapViewModel mapViewModel) {
+		
+		this.mapViewModel = mapViewModel;
+		
 		Route route = new Route();
 		Bindings.bindBidirectional(startProperty(), route.startProperty(),
 				new PositionStringConverter());
 		Bindings.bindBidirectional(finishProperty(), route.finishProperty(),
 				new PositionStringConverter());
-	}
-
-	public void initialize(MapViewModel viewModel) {
-		this.mapViewModel = mapViewModel;
-		
 	}
 }

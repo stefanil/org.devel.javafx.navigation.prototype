@@ -17,9 +17,10 @@ public class Configuration {
 	
 	public static final String PROXY_CONF_PATH = "proxy.conf";
 	
-	public static final String GOOGLEMAPS_HTML = 
-	"helloGoogleMapsAPI.html"; 
-	//"googlemaps.html";
+	public static final String GOOGLEMAPS_HTML =
+	"googleMapsJSAPI.html";
+//	"helloGoogleMapsAPI.html"; 
+//	"googlemaps.html";
 	//"fxexperience.html";
 
 	public static final double DEFAULT_POSITION_LONGITUDE = 13.70878;

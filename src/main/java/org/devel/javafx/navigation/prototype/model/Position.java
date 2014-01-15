@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleDoubleProperty;
  * 
  */
 public class Position {
-
+	
 	private DoubleProperty longitude;
 	private DoubleProperty latitude;
 
@@ -29,7 +29,7 @@ public class Position {
 
 	public DoubleProperty longitudeProperty() {
 		if (longitude == null)
-			longitude = new SimpleDoubleProperty(Configuration.DEFAULT_POSITION_LONGITUDE);
+			longitude = new SimpleDoubleProperty(getDefaultLongitude());
 		return longitude;
 	}
 
@@ -43,7 +43,7 @@ public class Position {
 
 	public DoubleProperty latitudeProperty() {
 		if (latitude == null)
-			latitude = new SimpleDoubleProperty(Configuration.DEFAULT_POSITION_LATITUDE);
+			latitude = new SimpleDoubleProperty(getDefaultLatitude());
 		return latitude;
 	}
 
@@ -53,6 +53,14 @@ public class Position {
 
 	public void setLatitude(double latitude) {
 		latitudeProperty().set(latitude);
+	}
+	
+	public double getDefaultLatitude() {
+		return Configuration.DEFAULT_POSITION_LATITUDE;
+	}
+	
+	public double getDefaultLongitude() {
+		return Configuration.DEFAULT_POSITION_LONGITUDE;
 	}
 
 }

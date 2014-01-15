@@ -11,10 +11,13 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.util.Callback;
 
 import org.devel.javafx.navigation.prototype.Configuration;
 import org.devel.javafx.navigation.prototype.util.Properties;
 import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
+
+import com.sun.javafx.scene.web.Debugger;
 
 import de.saxsys.jfx.mvvm.base.view.View;
 
@@ -32,6 +35,8 @@ public class MapView extends View<MapViewModel> {
 
 	private WebEngine webEngine;
 
+	private Worker<Void> loadWorker;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -41,6 +46,7 @@ public class MapView extends View<MapViewModel> {
 		// load proxy configuration and load monitors ..
 		new Properties().loadProxyConf();
 		loadMonitors(webEngine);
+		initializeDebugger(webEngine);
 
 		// load url into the engine
 		final URL urlGoogleMaps = getClass().getResource(
@@ -48,9 +54,10 @@ public class MapView extends View<MapViewModel> {
 		webEngine.load(urlGoogleMaps.toExternalForm());
 	}
 
+
 	private void loadMonitors(WebEngine webEngine) {
 
-		final Worker<Void> loadWorker = webEngine.getLoadWorker();
+		loadWorker = webEngine.getLoadWorker();
 
 		// monitor state
 		loadWorker.stateProperty().addListener(
@@ -77,7 +84,24 @@ public class MapView extends View<MapViewModel> {
 				});
 
 	}
+	
+	@SuppressWarnings("deprecation")
+	private void initializeDebugger(WebEngine webEngine) {
+		Debugger debugger = webEngine.impl_getDebugger();
+    	debugger.setMessageCallback(new Callback<String, Void>() {			
+			@Override
+			public Void call(String arg0) {
+				if(Configuration.DEBUG)
+					System.err.println(arg0);
+				return null;
+			}
+		});
+	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public WebEngine getWebEngine() {
 		return webEngine;		
 	}
