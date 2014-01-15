@@ -20,7 +20,10 @@ public class SearchRouteViewModel implements ViewModel {
 
 	private StringProperty start;
 	private StringProperty finish;
-	private MapViewModel mapViewModel;
+//	private MapViewModel mapViewModel;
+	
+	public SearchRouteViewModel() {
+	}
 
 	public StringProperty startProperty() {
 		if (start == null)
@@ -50,9 +53,9 @@ public class SearchRouteViewModel implements ViewModel {
 		this.finish.set(finish);
 	}
 
-	public void initialize(MapViewModel mapViewModel) {
+	public void initialize(/* MapViewModel mapViewModel */) {
 		
-		this.mapViewModel = mapViewModel;
+//		this.mapViewModel = mapViewModel;
 		
 		Route route = new Route();
 		Bindings.bindBidirectional(startProperty(), route.startProperty(),

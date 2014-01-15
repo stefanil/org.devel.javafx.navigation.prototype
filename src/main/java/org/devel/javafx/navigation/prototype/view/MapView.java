@@ -3,6 +3,7 @@ package org.devel.javafx.navigation.prototype.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -15,17 +16,16 @@ import javafx.util.Callback;
 
 import org.devel.javafx.navigation.prototype.Configuration;
 import org.devel.javafx.navigation.prototype.util.Properties;
-import org.devel.javafx.navigation.prototype.viewmodel.MapViewModel;
 
 import com.sun.javafx.scene.web.Debugger;
 
-import de.saxsys.jfx.mvvm.base.view.View;
+import de.saxsys.jfx.mvvm.base.view.ViewWithoutViewModel;
 
 /**
  * @author stefan.illgen
  * 
  */
-public class MapView extends View<MapViewModel> {
+public class MapView extends ViewWithoutViewModel {
 
 	@FXML
 	private HBox mapViewHBox;
@@ -36,6 +36,10 @@ public class MapView extends View<MapViewModel> {
 	private WebEngine webEngine;
 
 	private Worker<Void> loadWorker;
+
+	private StringProperty startPosition;
+
+	private StringProperty finishPosition;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -53,7 +57,6 @@ public class MapView extends View<MapViewModel> {
 				Configuration.GOOGLEMAPS_HTML);
 		webEngine.load(urlGoogleMaps.toExternalForm());
 	}
-
 
 	private void loadMonitors(WebEngine webEngine) {
 
@@ -84,14 +87,14 @@ public class MapView extends View<MapViewModel> {
 				});
 
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private void initializeDebugger(WebEngine webEngine) {
 		Debugger debugger = webEngine.impl_getDebugger();
-    	debugger.setMessageCallback(new Callback<String, Void>() {			
+		debugger.setMessageCallback(new Callback<String, Void>() {
 			@Override
 			public Void call(String arg0) {
-				if(Configuration.DEBUG)
+				if (Configuration.DEBUG)
 					System.err.println(arg0);
 				return null;
 			}
@@ -103,7 +106,35 @@ public class MapView extends View<MapViewModel> {
 	 * @return
 	 */
 	public WebEngine getWebEngine() {
-		return webEngine;		
+		return webEngine;
 	}
-	
+
+	public void bindRoute(StringProperty startPosition,
+			StringProperty finishPosition) {
+		
+		this.startPosition = startPosition;
+		this.finishPosition = finishPosition;
+
+		// listen for webEngine to initiate displaying of the route
+		getWebEngine().getLoadWorker().stateProperty()
+				.addListener(new ChangeListener<State>() {
+					@Override
+					public void changed(ObservableValue<? extends State> state,
+							State arg1, State newState) {
+						if (newState == State.SUCCEEDED) {
+							// remove change listener
+							state.removeListener(this);
+							// calculate route
+							calcRoute();
+						}
+					}
+				});
+
+	}
+
+	public void calcRoute() {
+		webEngine.executeScript("calcRoute(\"" + startPosition.get() + "\", \""
+				+ finishPosition.get() + "\")");
+	}
+
 }

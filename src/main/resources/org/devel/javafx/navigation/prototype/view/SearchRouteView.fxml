@@ -15,8 +15,8 @@
       <children>
         <GridPane hgap="10.0" vgap="10.0">
           <children>
-            <Label fx:id="startLbl" text="Start:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <Label fx:id="finishLbl" text="Finish:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Label fx:id="startLbl" text="Start (A):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="finishLbl" text="Finish (B):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <TextField fx:id="startTf" onKeyTyped="#startChanged" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <TextField fx:id="finishTf" onKeyTyped="#finishChanged" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button fx:id="searchBtn" mnemonicParsing="false" text="Search" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
@@ -31,7 +31,7 @@
           <rowConstraints>
             <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
             <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
-<RowConstraints />
+			<RowConstraints />
           </rowConstraints>
         </GridPane>
       </children>
