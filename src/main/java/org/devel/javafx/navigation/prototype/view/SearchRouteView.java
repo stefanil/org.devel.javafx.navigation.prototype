@@ -50,22 +50,17 @@ public class SearchRouteView extends View<SearchRouteViewModel> {
 
 	@FXML
 	void finishChanged(KeyEvent event) {
-		drawFinish();
-	}
-
-	private void drawFinish() {
-		WebEngine webEngine = mapViewController.getWebEngine();
-		webEngine.executeScript("drawFinish(\"" + finishTf.getText() + "\")");
+		calcRoute();
 	}
 
 	@FXML
 	void startChanged(KeyEvent event) {
-		drawStart();
+		calcRoute();
 	}
 
-	private void drawStart() {
+	private void calcRoute() {
 		WebEngine webEngine = mapViewController.getWebEngine();
-		webEngine.executeScript("drawStart(\"" + startTf.getText() + "\")");
+		webEngine.executeScript("calcRoute(\"" + startTf.getText() + "\", \"" + finishTf.getText() + "\")");
 	}
 
 	@Override
@@ -74,33 +69,31 @@ public class SearchRouteView extends View<SearchRouteViewModel> {
 		// init VM
 		getViewModel().initialize(mapViewController.getViewModel());
 
-		// bind V 2 VM after Web Engine has been loaded by maps view
+		// wait for webEngine to initiate displaying of the route
 		mapViewController.getWebEngine().getLoadWorker().stateProperty()
 				.addListener(new ChangeListener<State>() {
 					@Override
 					public void changed(ObservableValue<? extends State> arg0,
-							State arg1, State arg2) {
-						if (arg2 == State.SUCCEEDED) {
-							drawStart();
-							drawFinish();
-						}
-						// remove change listener
-						mapViewController.getWebEngine().getLoadWorker()
-								.stateProperty().removeListener(this);
+							State arg1, State newState) {
+						if (newState == State.SUCCEEDED) {
+							// calculate route
+							calcRoute();
+							// remove change listener
+							mapViewController.getWebEngine().getLoadWorker()
+									.stateProperty().removeListener(this);
+						}						
 					}
 				});
-		// startTf.textProperty().addListener(new ChangeListener<String>() {
-		// @Override
-		// public void changed(ObservableValue<? extends String> arg0,
-		// String arg1, String arg2) {
-		// startTf.textProperty().removeListener(this);
-		// drawStart();
-		// }
-		// });
+		
+		// bind V 2 VM after Web Engine has been loaded by maps view
 		startTf.textProperty()
 				.bindBidirectional(getViewModel().startProperty());
 		finishTf.textProperty().bindBidirectional(
 				getViewModel().finishProperty());
+	}
+
+	public MapView getMapView() {
+		return mapViewController;
 	}
 
 }

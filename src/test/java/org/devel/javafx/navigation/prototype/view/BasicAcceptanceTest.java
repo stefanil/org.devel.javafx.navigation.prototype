@@ -80,16 +80,28 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel>
 	}
 
 	/**
+	 * Returns the grounding {@link View} contained by the {@link #viewTuple}.
+	 * 
+	 * @return the grounding {@link View} contained by the {@link #viewTuple}.
+	 */
+	@SuppressWarnings("unchecked")
+	public V getView() {
+		return (V) viewTuple.getCodeBehind();
+	}
+
+	/**
 	 * Prepares the stage and binds the view model.
 	 */
 	@Override
 	public void setupStage() throws Throwable {
 
+		// if(stage == null)
 		super.setupStage();
+
 		stage.setWidth(Configuration.APPLICATION_SCREEN_WIDTH);
 		stage.setHeight(Configuration.APPLICATION_SCREEN_HEIGHT);
-		stage.setX(0.0);
-		stage.setY(0.0);
+		// stage.setX(0.0);
+		// stage.setY(0.0);
 
 		// create model and view model for testing (lazy bind) inside the one
 		// and only UI thread
@@ -132,10 +144,10 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel>
 			public Boolean call() throws Exception {
 				try {
 					parent = find(parentId);
-					return parent != null; // &&
-											// parent.getChildrenUnmodifiable().size()
-											// == 8;
+					return parent != null;
 				} catch (NoNodesVisibleException e) {
+					// nothing
+				} catch (NoNodesFoundException e) {
 					// nothing
 				} catch (IndexOutOfBoundsException e) {
 					// nothing
@@ -150,12 +162,30 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel>
 	 */
 	@After
 	public void tearDown() {
-		stage.setX(175);
-        stage.setY(175);
-        stage.setWidth(640);
-        stage.setHeight(400);
-        parent = null;
+		// closeCurrentWindow();
+		// stage.setX(175);
+		// stage.setY(175);
+		stage.setWidth(640);
+		stage.setHeight(400);
+		parent = null;
+		// closeCurrentWindow();
+		// stage.close();
 	}
+
+//	@AfterClass
+//	public static void closeStage() {
+//		try {
+//			FXTestUtils.invokeAndWait(new Runnable() {
+//				@Override
+//				public void run() {
+//					stage.close();
+//				}
+//			}, AWAIT_TIMEOUT_IN_SECONDS);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	// ########### helpers ######
 
@@ -223,6 +253,7 @@ public class BasicAcceptanceTest<V extends View<VM>, VM extends ViewModel>
 	 */
 	public void push(TextField textField, String string) {
 		click(textField);
+		eraseCharacters(textField.getText().length());
 		for (char ch : string.toCharArray())
 			push(ch);
 	}

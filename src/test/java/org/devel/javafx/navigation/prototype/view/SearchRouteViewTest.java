@@ -6,13 +6,18 @@ package org.devel.javafx.navigation.prototype.view;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.loadui.testfx.Assertions.verifyThat;
+
+import java.util.concurrent.Callable;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebView;
 
-import org.devel.javafx.navigation.prototype.Configuration;
 import org.devel.javafx.navigation.prototype.viewmodel.SearchRouteViewModel;
 import org.junit.Test;
+import org.loadui.testfx.exceptions.NoNodesVisibleException;
+import org.loadui.testfx.utils.TestUtils;
 
 /**
  * @author stefan.illgen
@@ -27,7 +32,26 @@ public class SearchRouteViewTest extends
 	public static final String FINISH_LONGITUDE = "13.73726";
 
 	public SearchRouteViewTest() {
-		super(SearchRouteView.class, "#searchRoutePane");
+		super(SearchRouteView.class, "#searchRouteVBox");
+	}
+
+	protected void wait4Parent() {
+		super.wait4Parent();
+
+		// TODO wait until WebEngine gets loaded correctly 
+		TestUtils.awaitCondition(new Callable<Boolean>() {
+			@Override
+			public Boolean call() throws Exception {
+				try {
+					WebView webView = find("#mapWebView", getParent());
+					return webView != null;
+	//				return webView.getEngine().getLoadWorker().getState() == State.SUCCEEDED;
+				} catch (NoNodesVisibleException e) {
+					// nothing
+				}
+				return false;
+			}
+		}, AWAIT_TIMEOUT_IN_SECONDS);
 	}
 
 	@Test
@@ -38,8 +62,7 @@ public class SearchRouteViewTest extends
 		verifyThat(startLbl.getText(), is("Start:"));
 		TextField startTf = findAwait("#startTf", getParent());
 		verifyThat(startTf.getText(),
-				is(Configuration.DEFAULT_POSITION_LATITUDE + " "
-						+ Configuration.DEFAULT_POSITION_LONGITUDE));
+				is(START_LATITUDE + " " + START_LONGITUDE));
 		// Action
 		push(startTf, "");
 		push(startTf, START_LATITUDE + " " + START_LONGITUDE);
@@ -54,9 +77,8 @@ public class SearchRouteViewTest extends
 		Label finishLbl = findAwait("#finishLbl");
 		verifyThat(finishLbl.getText(), is("Finish:"));
 		TextField finishTf = findAwait("#finishTf", getParent());
-		verifyThat(finishTf.getText(),
-				is(Configuration.DEFAULT_POSITION_LATITUDE + " "
-						+ Configuration.DEFAULT_POSITION_LONGITUDE));
+		verifyThat(finishTf.getText(), is(FINISH_LATITUDE + " "
+				+ FINISH_LONGITUDE));
 		// Action
 		push(finishTf, "");
 		push(finishTf, FINISH_LATITUDE + " " + FINISH_LONGITUDE);

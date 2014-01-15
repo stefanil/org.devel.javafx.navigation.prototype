@@ -25,7 +25,7 @@ public class MapViewTest extends BasicAcceptanceTest<MapView, MapViewModel> {
 	 * 
 	 */
 	public MapViewTest() {
-		super(MapView.class, "#mapViewPane");
+		super(MapView.class, "#mapViewHBox");
 	}
 
 	/**

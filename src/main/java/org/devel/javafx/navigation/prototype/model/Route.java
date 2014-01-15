@@ -16,7 +16,7 @@ public class Route {
 
 	public ObjectProperty<Position> startProperty() {
 		if(start == null)
-			start = new SimpleObjectProperty<>(new StartPosition());
+			start = new SimpleObjectProperty<Position>(new StartPosition());
 		return start;
 	}
 	
@@ -30,7 +30,7 @@ public class Route {
 	
 	public ObjectProperty<Position> finishProperty() {
 		if(finish == null)
-			finish = new SimpleObjectProperty<>(new FinishPosition());
+			finish = new SimpleObjectProperty<Position>(new FinishPosition());
 		return finish;
 	}
 

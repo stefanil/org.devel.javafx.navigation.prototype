@@ -20,7 +20,7 @@ public class SearchRouteViewModel implements ViewModel {
 
 	private StringProperty start;
 	private StringProperty finish;
-	private Object mapViewModel;
+	private MapViewModel mapViewModel;
 
 	public StringProperty startProperty() {
 		if (start == null)
