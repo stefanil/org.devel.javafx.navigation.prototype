@@ -184,3 +184,10 @@ Links:
 
 ###<a href="http://download.java.net/jdk8/jfxdocs/javafx/scene/control/SkinBase.html">SkinBase</a>
 * Base class for defining skins (coloring, gradientsa, css inclusion)
+
+###Existing Libraries
+
+* JFXtras
+* GridFX
+* Mondena
+* ZenGuitar
