@@ -142,15 +142,43 @@ Javascript API for easy integration of Google Maps with HTML5 concepts.
 
 ##Integration of Google's Maps API and Services
 
-###Approach 1: Java FX WebView + Google Maps JavaScript API v3
+###Approach 1: Java FX WebView + Google Maps JavaScript API v3 (DONE)
 - browser consumes much of resources
 ?  set and present GPS coordinates without internet connection (but GPS receiver)
 + easy implementation
 -/+ offline functionality for image maps and routes with webdb exists as long as the browser is opened
 
-###Approach 2: Java FX SVG Features + Static Maps API V2 (for Business) + Google Web Services
+###Approach 2: Java FX SVG Features + Static Maps API V2 (for Business) + Google Web Services (TODO)
 In this approch the Google Static Maps API is used to download the images provided by google and buffer it in some way (i.e. using some persitence API as JPA). The other services may be used to request and draw routes from within Java FX.
 + no browser but a small and lightweight JAR
 + set and present GPS coordinates without internet connection (but GPS receiver)
 - high implementation effort
 + offline functionality for image maps and routes while persisting them via usual database
+
+##Building Customn Controls with JavaFX 8
+Ways:
+<ul>
+ <li>Custom Controls via FXML + dynamic root + Override Control</li>
+ <li>Library Style: Control, Skin + Behaviour</li>
+ <li>Custom Controls by styling with CSS</li>
+ <li>..</li>
+</ul>
+Links:
+* Java 7
+  * <a href="http://www.guigarage.com/2012/11/custom-ui-controls-with-javafx-part-1/">Gui Garage: Control, Skin + Behaviour for Java 7</a>
+ 
+* Java 8
+  * <a href="https://wiki.openjdk.java.net/display/OpenJFX/UI+Controls+Architecture">UI Controls Architecture</a>
+  * <a href="https://wiki.openjdk.java.net/display/OpenJFX/CSS+API+to+support+custom+UI+Controls">CSS API to support custom UI Controls</a>
+
+###Styling UI Controls
+* define Skin 4 Control
+  * flexible (define color gradients usw.) 
+  * but difficult
+* use CSS
+ * easy
+ * inflexible
+
+###CSS API to support custom UI Controls
+* Use Case: style properties via CSS
+* 
