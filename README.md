@@ -157,37 +157,40 @@ In this approch the Google Static Maps API is used to download the images provid
 
 ##Building Customn Controls with JavaFX 8
 Ways:
-<ul>
- <li>Custom Controls via FXML + dynamic root + Override Control</li>
- <li>Library Style: Control, Skin + Behaviour</li>
- <li>Custom Controls by styling with CSS</li>
- <li>..</li>
-</ul>
-Links:
-* Java 7
-  * <a href="http://www.guigarage.com/2012/11/custom-ui-controls-with-javafx-part-1/">Gui Garage: Control, Skin + Behaviour for Java 7</a>
- 
-* Java 8
-  * <a href="https://wiki.openjdk.java.net/display/OpenJFX/UI+Controls+Architecture">UI Controls Architecture</a>
-  * <a href="https://wiki.openjdk.java.net/display/OpenJFX/CSS+API+to+support+custom+UI+Controls">CSS API to support custom UI Controls</a>
+* Custom Controls via FXML + dynamic root + Override Control + css
+* Library Style: Complete Own Control, Skin + Behaviour
+  * examples
+    * java7
+      * <a href="http://www.guigarage.com/2012/11/custom-ui-controls-with-javafx-part-1/">Gui Garage: Control, Skin + Behaviour for Java 7</a>
+* only adapt the Skin + CSS of the control without defining custom controls 
+  * main benefit: reuse existing controls and just define the skin
+  * examples: aquafx
+  * links: 
+    * <a href="http://download.java.net/jdk8/jfxdocs/javafx/scene/control/SkinBase.html">SkinBase</a>
+      * Base class for defining skins (coloring, gradientsa, css inclusion)
+    * <a href="https://wiki.openjdk.java.net/display/OpenJFX/UI+Controls+Architecture">UI Controls Architecture</a>
+    * <a href="https://wiki.openjdk.java.net/display/OpenJFX/CSS+API+to+support+custom+UI+Controls">CSS API to support custom UI Controls</a>
+    * CSS API to support custom UI Controls
+      * Use Case: style properties via CSS
 
-###Styling UI Controls
-* define Skin 4 Control
-  * flexible (define color gradients usw.) 
-  * but difficult
-* use CSS
- * easy
- * inflexible
+###UI Control Libraries
 
-###CSS API to support custom UI Controls
-* Use Case: style properties via CSS
+most important:
 
-###<a href="http://download.java.net/jdk8/jfxdocs/javafx/scene/control/SkinBase.html">SkinBase</a>
-* Base class for defining skins (coloring, gradientsa, css inclusion)
+* aquafx (JDK8)
+  * Mac OS Controls
+  * built on java8 early access
+  * supports Emoticons in a special FlowView
+* JFXtras (JDK7&8) 
+  * LEDs
+* JideFX (JDK8)
+* ConstrolsFX (JDK8)
+* FXForm2  (JDK7)
 
-###Existing Libraries
+further:
 
-* JFXtras
 * GridFX
 * Mondena
 * ZenGuitar
+
+see also <a href="http://www.oracle.com/technetwork/java/javafx/community/3rd-party-1844355.html">here</a>!
