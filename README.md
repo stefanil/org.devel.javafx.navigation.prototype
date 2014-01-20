@@ -159,12 +159,15 @@ In this approch the Google Static Maps API is used to download the images provid
 Ways:
 * Custom Controls via FXML + dynamic root + Override Control + css
 * Library Style: Complete Own Control, Skin + Behaviour
+  * main disadvantage: Bahaviour API is not public with JavaFX8
   * examples
     * java7
       * <a href="http://www.guigarage.com/2012/11/custom-ui-controls-with-javafx-part-1/">Gui Garage: Control, Skin + Behaviour for Java 7</a>
-* only adapt the Skin + CSS of the control without defining custom controls 
+* BP: only adapt the Skin + CSS of the control without defining custom controls 
   * main benefit: reuse existing controls and just define the skin
   * examples: aquafx
+  * best practices:
+    * extend Skin from existing Skin of control
   * links: 
     * <a href="http://download.java.net/jdk8/jfxdocs/javafx/scene/control/SkinBase.html">SkinBase</a>
       * Base class for defining skins (coloring, gradientsa, css inclusion)
