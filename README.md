@@ -170,7 +170,7 @@ Ways:
     * extend Skin from existing Skin of control
   * links: 
     * <a href="http://download.java.net/jdk8/jfxdocs/javafx/scene/control/SkinBase.html">SkinBase</a>
-      * Base class for defining skins (coloring, gradientsa, css inclusion)
+      * Base class for styling > defining skins (coloring, gradientsa, css inclusion) + Layout calculations
     * <a href="https://wiki.openjdk.java.net/display/OpenJFX/UI+Controls+Architecture">UI Controls Architecture</a>
     * <a href="https://wiki.openjdk.java.net/display/OpenJFX/CSS+API+to+support+custom+UI+Controls">CSS API to support custom UI Controls</a>
     * CSS API to support custom UI Controls
