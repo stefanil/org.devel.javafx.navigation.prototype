@@ -6,10 +6,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
+<?import org.devel.javafx.scene.control.RouteMapView?>
 
-<HBox fx:id="mapViewHBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
-  <!-- TODO Add Nodes -->
-  <children>
-    <WebView fx:id="mapWebView" minHeight="100.0" minWidth="100.0" prefHeight="300.0" prefWidth="640.0" HBox.hgrow="ALWAYS" />
-  </children>
+<HBox fx:id="mapViewHBox" xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
+	<!-- TODO Add Nodes -->
+	<children>
+		<RouteMapView fx:id="routeMapView" HBox.hgrow="ALWAYS" />
+		<!-- minHeight="100.0" minWidth="100.0"
+			prefHeight="300.0" prefWidth="640.0" -->
+	</children>
 </HBox>

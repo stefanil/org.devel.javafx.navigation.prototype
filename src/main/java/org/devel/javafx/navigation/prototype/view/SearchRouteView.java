@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import org.devel.javafx.navigation.prototype.viewmodel.SearchRouteViewModel;
@@ -44,30 +43,20 @@ public class SearchRouteView extends View<SearchRouteViewModel> {
 	@FXML
 	private TextField startTf;
 
-	@FXML
-	void finishChanged(KeyEvent event) {
-		mapViewController.calcRoute();
-	}
-
-	@FXML
-	void startChanged(KeyEvent event) {
-		mapViewController.calcRoute();
-	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		// init VM
 		getViewModel().initialize();
 
-		// set route props
-		mapViewController.bindRoute(startTf.textProperty(), finishTf.textProperty());		
-		
 		// bind V 2 VM after Web Engine has been loaded by maps view
 		startTf.textProperty()
 				.bindBidirectional(getViewModel().startProperty());
 		finishTf.textProperty().bindBidirectional(
 				getViewModel().finishProperty());
+		// set route props
+		mapViewController.startPositionProperty().bind(startTf.textProperty());
+		mapViewController.finishPositionProperty().bind(finishTf.textProperty());
 	}
 
 	public MapView getMapView() {

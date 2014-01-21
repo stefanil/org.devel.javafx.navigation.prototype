@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<!-- 
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+ -->
+
+<fx:root xmlns:fx="http://javafx.com/fxml" type="AnchorPane"
+	xmlns="http://javafx.com/javafx/2.2">
+	<!-- xmlns="http://javafx.com/javafx/8" -->
+	<children>
+		<WebView fx:id="routeMapView" minHeight="100.0" minWidth="100.0"
+			prefHeight="300.0" prefWidth="640.0" />
+	</children>
+</fx:root>
+
