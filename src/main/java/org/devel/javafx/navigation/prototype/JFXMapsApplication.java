@@ -12,20 +12,31 @@ import de.saxsys.jfx.mvvm.viewloader.ViewLoader;
 import de.saxsys.jfx.mvvm.viewloader.ViewTuple;
 
 /**
- * Hello world!
+ * @author stefan.illgen
  * 
  */
 public class JFXMapsApplication extends Application {
 
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/**
+	 * 
+	 */
 	public void start(Stage stage) throws Exception {
 		new Properties().loadProxyConf();
 		loadViewTuple(stage);
 	}
 
+	/**
+	 * 
+	 * @param stage
+	 */
 	private void loadViewTuple(Stage stage) {
 		// load view tuple
 		ViewLoader viewLoader = new ViewLoader();

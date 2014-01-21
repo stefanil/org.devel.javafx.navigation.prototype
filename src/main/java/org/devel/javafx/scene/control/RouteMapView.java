@@ -41,46 +41,6 @@ public class RouteMapView extends Control {
 		setupEngine();
 	}
 
-	private void setupSkin() {
-		getStyleClass().add("route-map-view");
-	}
-
-	/**
-	 * Integrate skin.
-	 */
-	@Override
-	protected String getUserAgentStylesheet() {
-		return getClass().getResource("route-map-view.css").toExternalForm();
-	}
-
-	/**
-	 * 
-	 */
-	public void setupEngine() {
-
-		routeMapView = WebViewBuilder.create().id("routeMapView")
-				.minHeight(100.0).minWidth(100.0).prefHeight(300.0)
-				.prefWidth(640.0).build();
-
-		// add it to the scene graph
-		getChildren().add(routeMapView);
-
-		// get the web engine
-		webEngine = routeMapView.getEngine();
-		loadMonitors(webEngine);
-		initializeDebugger(webEngine);
-
-		// load url into the engine
-		final URL urlGoogleMaps = getClass().getResource(
-				Configuration.GOOGLEMAPS_HTML);
-		webEngine.load(urlGoogleMaps.toExternalForm());
-
-		// listen for webEngine to initiate displaying of the route
-		getWebEngine().getLoadWorker().stateProperty()
-				.addListener(new EngineSucceededListener());
-
-	}
-
 	/**
 	 * 
 	 * @return
@@ -139,6 +99,46 @@ public class RouteMapView extends Control {
 	 */
 	public void setFinishPosition(String finishPosition) {
 		this.finishPositionProperty().set(finishPosition);
+	}
+	
+	// ### private API ###
+	
+	private void setupSkin() {
+		getStyleClass().add("route-map-view");
+	}
+
+	/**
+	 * Integrate skin.
+	 */
+	@Override
+	protected String getUserAgentStylesheet() {
+		return getClass().getResource("route-map-view.css").toExternalForm();
+	}
+
+	/**
+	 * 
+	 */
+	private void setupEngine() {
+
+		routeMapView = WebViewBuilder.create().id("routeMapView").build();
+
+		// add it to the scene graph
+		getChildren().add(routeMapView);
+
+		// get the web engine
+		webEngine = routeMapView.getEngine();
+		loadMonitors(webEngine);
+		initializeDebugger(webEngine);
+
+		// load url into the engine
+		final URL urlGoogleMaps = getClass().getResource(
+				Configuration.GOOGLEMAPS_HTML);
+		webEngine.load(urlGoogleMaps.toExternalForm());
+
+		// listen for webEngine to initiate displaying of the route
+		getWebEngine().getLoadWorker().stateProperty()
+				.addListener(new EngineSucceededListener());
+
 	}
 
 	/**

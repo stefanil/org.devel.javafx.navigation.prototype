@@ -8,12 +8,13 @@
 <?import javafx.scene.web.*?>
 <?import org.devel.javafx.scene.control.RouteMapView?>
 
-<HBox fx:id="mapViewHBox" xmlns:fx="http://javafx.com/fxml/1"
-	xmlns="http://javafx.com/javafx/2.2" fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
-	<!-- TODO Add Nodes -->
+<HBox fx:id="mapViewHBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  
+	fx:controller="org.devel.javafx.navigation.prototype.view.MapView">
+	<!-- 
+		xmlns:fx="http://javafx.com/fxml/1"
+		xmlns="http://javafx.com/javafx/2.2" 
+	 -->
 	<children>
 		<RouteMapView fx:id="routeMapView" HBox.hgrow="ALWAYS" />
-		<!-- minHeight="100.0" minWidth="100.0"
-			prefHeight="300.0" prefWidth="640.0" -->
 	</children>
 </HBox>
