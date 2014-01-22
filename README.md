@@ -155,7 +155,7 @@ In this approch the Google Static Maps API is used to download the images provid
 - high implementation effort
 + offline functionality for image maps and routes while persisting them via usual database
 
-##Building Customn Controls with JavaFX 8
+##Building Custom Controls with JavaFX 8
 Ways:
 * Custom Controls via FXML + dynamic root + Override Control + css
 * Library Style: Complete Own Control, Skin + Behaviour
@@ -178,7 +178,7 @@ Ways:
 * Aggregate FXML Custom Control (Dynamic Root) in a newly created Custom Control
   * Example: <tt>RouteMapView.java</tt>, which aggregates a WebView but does not use FXML-based custom controls
 
-###UI Control Libraries
+###Existing UI Control Libraries
 
 most important:
 
