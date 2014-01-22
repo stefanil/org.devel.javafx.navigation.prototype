@@ -163,7 +163,7 @@ Ways:
   * examples
     * java7
       * <a href="http://www.guigarage.com/2012/11/custom-ui-controls-with-javafx-part-1/">Gui Garage: Control, Skin + Behaviour for Java 7</a>
-* BP: only adapt the Skin + CSS of the control without defining custom controls 
+* SkinBase: only adapt the Skin + CSS of the control without defining custom controls 
   * main benefit: reuse existing controls and just define the skin
   * examples: aquafx
   * best practices:
@@ -175,6 +175,8 @@ Ways:
     * <a href="https://wiki.openjdk.java.net/display/OpenJFX/CSS+API+to+support+custom+UI+Controls">CSS API to support custom UI Controls</a>
     * CSS API to support custom UI Controls
       * Use Case: style properties via CSS
+* Aggregate FXML Custom Control (Dynamic Root) in a newly created Custom Control
+  * Example: <tt>RouteMapView.java</tt>, which aggregates a WebView but does not use FXML-based custom controls
 
 ###UI Control Libraries
 
